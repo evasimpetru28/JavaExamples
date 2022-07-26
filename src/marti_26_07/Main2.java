@@ -1,9 +1,6 @@
 package marti_26_07;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.function.*;
 import java.util.stream.Collectors;
 
@@ -115,6 +112,48 @@ public class Main2 {
                                         .sorted(Comparator.reverseOrder())
                                                 .collect(Collectors.toList());
         System.out.println(result);
+
+        System.out.println("--------------------------------------");
+
+        //flatMap
+        System.out.println("flatMap:");
+
+        List<List<Student>> toataLumea = new ArrayList<>();
+
+        List<Student> fete = List.of(
+                new Student(1, "Alexandra", 20),
+                new Student(2, "Eva", 27),
+                new Student(3, "Maria", 20),
+                new Student(4, "Ioana", 18),
+                new Student(5, "Diana", 11),
+                new Student(6, "Bianca", 21)
+        );
+
+        List<Student> baieti = List.of(
+                new Student(1, "Alex", 20),
+                new Student(2, "Dan", 27),
+                new Student(3, "Marian", 20),
+                new Student(4, "Ion", 18),
+                new Student(5, "Luca", 11),
+                new Student(6, "Vlad", 21)
+        );
+
+        System.out.println("Toti studentii:");
+        toataLumea.add(fete);
+        toataLumea.add(baieti);
+        toataLumea.stream() // array cu 2 array-uri
+                        .flatMap(Collection::stream) // reduce de la un array cu mai multe array-uri la un singur array cu toate elem
+                            .forEach(n -> System.out.println(n));
+
+        System.out.println();
+
+        // reduce
+        System.out.println("reduce:");
+
+        List<Integer> numbers = List.of(1,2,3,4,5,6,7);
+        int res = numbers.stream()
+                        .reduce(100, (subtotal, element) -> subtotal + element);
+        System.out.println(res);
 
         System.out.println("--------------------------------------");
 
