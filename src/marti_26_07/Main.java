@@ -234,8 +234,68 @@ public class Main {
         studentSet.add(student1);
         studentSet.add(student2);
 
+        System.out.println("------------");
 
+        // Map Studenti
+        System.out.println("Students Map:\n");
 
+        Map<Student, Integer> stdMap = new HashMap<>();
+        stdMap.put(new Student(1, "Alex", 20), 100);
+        stdMap.put(new Student(1, "Andrei", 23), 101);
+        System.out.println(stdMap);
+
+        System.out.println("------------");
+
+        ArrayList al = new ArrayList(); // se poate dar e deprecated
+        al.add("apple");
+
+        List<String> numbers = List.of("one", "two");
+        List<String> fructe = List.of("mere", "pere");
+        List<Integer> numbers2 = List.of(1,2,3);
+        System.out.println("Numbers list:");
+        showListElements(numbers);
+        System.out.println("Fructe list:");
+        showListElements(fructe);
+        System.out.println("Numbers2 list:");
+        showListElements(numbers2);
+
+        List<Car> carList = List.of(new Car("Audi"), new Car("VW"));
+        System.out.println("CarList list:");
+        showListElements(carList);
+
+        System.out.println("------------");
+
+        Object o = showListElementsMap(false);
+        System.out.println(o);
+
+        System.out.println("------------");
+
+    }
+
+    public static <T> T showListElementsMap(boolean b) {
+        Map<Integer, String > mapCeva = new HashMap<>();
+        mapCeva.put(0, "ceva");
+        mapCeva.put(1, "altceva");
+
+        Map<Integer, Integer > mapCeva2 = new HashMap<>();
+        mapCeva2.put(0, 0);
+        mapCeva2.put(1, 1);
+
+        if(b) {
+            return (T) mapCeva.get(0);
+        }
+        return (T) mapCeva2.get(0);
+    }
+    public static void showListElements(List<?> list) { // generic
+        for (Object elem : list) {
+            System.out.println(elem);
+        }
+    }
+
+    public static void showListElementsStr(List<String> list) {
+    }
+
+    public static void showListElementsInt(List<Integer> list) {
     }
 
     public static void compute(Collection collection) { // inglobeaza si seturi si liste
