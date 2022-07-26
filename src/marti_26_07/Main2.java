@@ -1,6 +1,7 @@
 package marti_26_07;
 
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.*;
 import java.util.stream.Collectors;
 
@@ -141,9 +142,14 @@ public class Main2 {
         System.out.println("Toti studentii:");
         toataLumea.add(fete);
         toataLumea.add(baieti);
-        toataLumea.stream() // array cu 2 array-uri
-                        .flatMap(Collection::stream) // reduce de la un array cu mai multe array-uri la un singur array cu toate elem
-                            .forEach(n -> System.out.println(n));
+//        toataLumea.stream() // array cu 2 array-uri
+//                        .flatMap(Collection::stream) // reduce de la un array cu mai multe array-uri la un singur array cu toate elem
+//                            .forEach(n -> System.out.println(n));
+
+        toataLumea.stream()
+                        .flatMap(lista -> lista.stream());
+
+        System.out.println(toataLumea);
 
         System.out.println();
 
@@ -154,6 +160,78 @@ public class Main2 {
         int res = numbers.stream()
                         .reduce(100, (subtotal, element) -> subtotal + element);
         System.out.println(res);
+
+        System.out.println("--------------------------------------");
+
+        // Method reference ::
+        // atunci cand se apeleaza o singura data o functie a unei clase in interiorul unei expresii lambda
+        // se elimina paratezele si se pune numai numele clasei din care este referentiata
+        // intre clasa si metoda se pune ::
+
+        System.out.println("Method reference:");
+
+        List<String> numbersText = List.of("a", "b", "c");
+        numbersText.stream()
+//                        .map(t -> t.toUpperCase())
+                        .map(String::toUpperCase)
+                                .forEach(t -> System.out.println(t));
+
+        List<Student> studs = List.of(
+                new Student(1, "Alex", 20),
+                new Student(2, "Dan", 27),
+                new Student(3, "Marian", 20),
+                new Student(4, "Ion", 18),
+                new Student(5, "Luca", 11),
+                new Student(6, "Vlad", 21)
+        );
+
+        studs.stream()
+                        .map(Student::getName)
+                                .forEach(System.out::println);
+
+        System.out.println("--------------------------------------");
+
+        List<Company> companies = List.of(
+                new Company(1L, "C1", "S1"),
+                new Company(2L, "C2", "S2"),
+                new Company(3L, "C3", "S1"),
+                new Company(4L, "C4", "S2"),
+                new Company(5L, "C5", "S3"),
+                new Company(6L, "C6", "S4"),
+                new Company(7L, "C7", "S3"),
+                new Company(8L, "C8", "S3"),
+                new Company(9L, "C9", "S2")
+        );
+
+        Map<String, List<Company>> z = companies.stream()
+                        .collect(Collectors.groupingBy(c -> c.getSector()));
+
+        System.out.println(z);
+        System.out.println();
+
+        Map<String,  List<String>> numeCompanii = companies.stream()
+                .collect(Collectors.groupingBy(c -> c.getSector(), // grupeaza: ii da o lista de companii dupa sector
+                        Collectors.mapping(c -> c.getName(), Collectors.toList()) // rezultatul il mapeaza, apoi il repune in lista
+                        ));
+        System.out.println(numeCompanii);
+
+        System.out.println("--------------------------------------");
+
+        // Optional
+
+        System.out.println("Optional:");
+
+        Company company1 = new Company(1l, "C1", "S1");
+        Company company2 = null;
+        Optional<Company> company1Optional = Optional.ofNullable(company1); // pentru company2 ar da exceptia aruncata mai jos
+        company1Optional.ifPresent(c -> c.getName()); //accepta un consumer
+        String name = company1Optional.map(c -> c.getName())
+                .orElseThrow(() -> new ArithmeticException("Operatiunea nu este corecta!"));
+        System.out.println(name);
+
+        if (company1 != null) {
+            String n= company1.getName();
+        }
 
         System.out.println("--------------------------------------");
 

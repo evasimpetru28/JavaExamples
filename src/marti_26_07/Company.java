@@ -35,4 +35,13 @@ public class Company {
     public void setSector(String sector) {
         this.sector = sector;
     }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sector='" + sector + '\'' +
+                '}';
+    }
 }
