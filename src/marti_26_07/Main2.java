@@ -1,5 +1,6 @@
 package marti_26_07;
 
+import javax.swing.plaf.IconUIResource;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.*;
@@ -235,6 +236,52 @@ public class Main2 {
 
         System.out.println("--------------------------------------");
 
+        List<Integer> copy = List.copyOf(numbers);
+        System.out.println(numbers);
+        System.out.println(copy);
+
+        Predicate<Integer> myFilter = n -> n % 2 == 0; // nr pare
+        numbers.stream()
+                        .filter(Predicate.not(myFilter)) // opusul a ceea ce este definit in myFilter => nr impare
+                                .forEach(System.out::println);
+
+        String text = "    ";
+        if(text.isBlank()) {
+            text.toUpperCase();
+        }
+
+        String t = "    AA       ";
+        System.out.println(t.strip());
+
+//        String str = null;
+//        str.toString();
+
+        var text2 = """
+                    Hei, %s!
+                CE MAI FACI, %s?
+                    La revedere... %d
+                """.formatted("Ana", "Dan", 20);
+        System.out.println(text2);
+
+        int x = 5;
+        metoda(x);
+
+        System.out.println("--------------------------------------");
+
+    }
+
+    private static void metoda(final int x) {
+        switch (x) {
+            case 1:
+                System.out.println("este 1");
+                break;
+            case 2:
+                System.out.println("este 2");
+                break;
+            default:
+                System.out.println("este altceva");
+                break;
+        }
     }
 
     //supplier
