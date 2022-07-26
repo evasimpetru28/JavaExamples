@@ -270,6 +270,104 @@ public class Main {
 
         System.out.println("------------");
 
+        // Comparator
+        // Sortarea unui array cu comparator folosind lungimea cuvintelor
+
+        List<String> animalsArray = new ArrayList<>();
+        animalsArray.add("snake");
+        animalsArray.add("dog");
+        animalsArray.add("elephant");
+        animalsArray.add("cat");
+        animalsArray.add("mouse");
+
+        System.out.println("Lista animalelor sortate dupa lungimea cuvintelor(comparator):\n");
+
+//        Collections.sort(animalsArray, new LengthComparator());
+
+        /*
+        Comparator -> interfata functionala -> 1 singura metoda
+         */
+
+
+//        Collections.sort(animalsArray, new Comparator<String>() { // primeste o lista si o interfata functionala mereu
+//            @Override
+//            public int compare(String s, String t1) {
+//                if(s.length() > t1.length()) {
+//                    return 1;
+//                } else if (s.length() == t1.length()) {
+//                    return 0;
+//                } else {
+//                    return -1;
+//                }
+//            }
+//        });
+
+        // nu conteaza clasa, tipul parametrilor, numele functiei
+        // are o singura functie de implementat
+        // Lambda expression, arrowfunction
+
+        Collections.sort(animalsArray, (s,t1) -> {
+                if(s.length() > t1.length()) {
+                    return 1;
+                } else if (s.length() == t1.length()) {
+                    return 0;
+                } else {
+                    return -1;
+                }
+            }
+        );
+
+        System.out.println(animalsArray);
+
+        System.out.println("------------");
+
+        List<Employee> emps = Arrays.asList(
+                new Employee("Alex", 20),
+                new Employee("Ionut", 23),
+                new Employee("Andreea", 31)
+        );
+
+        Collections.sort(emps, (e1,e2) -> {
+            int x = 6;
+            int y = 2;
+            int z = x + y;
+            return e2.getAge().compareTo(e1.getAge());
+        }); // sortare descrescatoare
+        System.out.println("Lista angajatilor sortati dupa varsta:\n" + emps);
+
+        System.out.println("------------");
+
+        final int x = 5; // constanta
+        // x = 7; //  nu merge
+
+        final List<String> fruitList = new ArrayList<>();
+        fruitList.add("mere"); // se pot adauga elemente, se pot scoate
+        fruitList.add("pere");
+        // fruitList = new ArrayList<>(); // nu se poate modifica referinta listei pentru ca este final
+
+
+        final Car car = new Car("Brand1");
+        car.setBrand("Brand2"); // se poate schimba atributul
+        Car car2 = new Car("Brand3");
+        // car = car2; // NU se poate schimba referinta pentru ca este final
+
+        System.out.println(sum(2, 3));
+        System.out.println(sum2(2,3));
+
+        System.out.println("------------");
+
+
+    }
+
+    public static int sum(final int x, final int y) {
+        // x = 10; // nu se pot modifica valorile parametrilor in cadrul functiei
+        return x + y;
+    }
+
+    public static final int sum2(final int x, final int y) {
+        // copil care mosteneste clasa in care se afla metoda finala nu se poate suprascrie
+        // clasa final nu poate fi extinsa
+        return x + y;
     }
 
     public static <T> T showListElementsMap(boolean b) {
